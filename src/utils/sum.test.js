@@ -1,8 +1,10 @@
 import { sum, sumWithDataFetch } from "./sum";
 
-jest.mock("./fetchData", () => () => {
-  console.log("mock fetchData");
-});
+import * as fetchData from "./fetchData";
+
+// jest.mock("./fetchData", () => () => {
+//   console.log("mock fetchData");
+// });
 
 describe("sum", () => {
   it("adds 2 and 5", () => {
@@ -19,6 +21,12 @@ describe("sum", () => {
 });
 
 describe("sumWithDataFetch", () => {
+  beforeEach(() => {
+    jest.spyOn(fetchData, "default").mockImplementation(() => {
+      console.log("mock fetchData");
+    });
+  });
+
   it("adds 2 and 5", () => {
     expect(sumWithDataFetch(2, 5)).toBe(7);
   });
