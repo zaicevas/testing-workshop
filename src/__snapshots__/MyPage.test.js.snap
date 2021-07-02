@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<MyPage /> renders correctly 1`] = `
+<div>
+  Hello world
+  <button>
+    Change title
+  </button>
+</div>
+`;
+
+exports[`renders correctly 1`] = `
+<div>
+  Hello world
+  <button>
+    Change title
+  </button>
+</div>
+`;
