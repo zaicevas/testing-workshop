@@ -42,4 +42,15 @@ describe("sumWithDataFetch", () => {
 
     expect(fetchDataSpy).toHaveBeenCalledTimes(1);
   });
+
+  it("calls provided callback", () => {
+    // arrange
+    const func = jest.fn(() => {});
+
+    // act
+    sumWithDataFetch(2, 5, func);
+
+    // assert
+    expect(func).toHaveBeenCalledTimes(1);
+  });
 });
