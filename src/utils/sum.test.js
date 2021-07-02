@@ -21,13 +21,25 @@ describe("sum", () => {
 });
 
 describe("sumWithDataFetch", () => {
+  let fetchDataSpy;
+
   beforeEach(() => {
-    jest.spyOn(fetchData, "default").mockImplementation(() => {
-      console.log("mock fetchData");
-    });
+    fetchDataSpy = jest.spyOn(fetchData, "default");
   });
 
   it("adds 2 and 5", () => {
     expect(sumWithDataFetch(2, 5)).toBe(7);
+  });
+
+  it("calls fetchData", () => {
+    sumWithDataFetch(2, 5);
+
+    expect(fetchDataSpy).toHaveBeenCalledTimes(1);
+  });
+
+  it("calls fetchData second time", () => {
+    sumWithDataFetch(2, 5);
+
+    expect(fetchDataSpy).toHaveBeenCalledTimes(1);
   });
 });
