@@ -1,16 +1,33 @@
-import { useState } from "react";
+import { getTitle } from "./data/api/title";
+import { useEffect, useState } from "react";
 
-const MyPage = ({ title }) => {
-  const [mutableTitle, setMutableTitle] = useState(title);
+const MyPage = () => {
+  const [title, setTitle] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+  const [isError, setIsError] = useState(false);
 
-  const handleChangeTitleClick = () => {
-    setMutableTitle("Mutated title");
-  };
+  useEffect(() => {
+    const fetchTitle = async () => {
+      const response = await getTitle();
+
+      if (!response) {
+        setIsError(true);
+        return;
+      }
+
+      setTitle(response.title);
+      setIsLoading(false);
+      getTitle();
+    };
+
+    fetchTitle();
+  }, []);
 
   return (
     <>
-      {mutableTitle}
-      <button onClick={handleChangeTitleClick}>Change title</button>
+      {isLoading && "Loading..."}
+      {isError && "Error"}
+      {title}
     </>
   );
 };
